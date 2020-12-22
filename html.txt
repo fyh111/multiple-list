@@ -1,0 +1,13 @@
+<video></video>标签--->属性
+    autoplay-->autoplay-->指定视频在准备就绪之后立即开始播放
+    controls-->controls-->指定是否显示视频控件
+    height-->设置视频播放器的高度
+    width-->设置视频播放器的宽度
+    loop-->loop-->指定视频播放完成后重新播放
+    muted-->muted-->指定视频静音
+    poster-->指定视频在加载时显示的图像,为空则默认为视频第一帧
+    src-->视频的URL地址
+    preload-->auto-->页面加载时加载整个视频
+            ->metadata-->页面加载时只加载元数据,例如视频的第一帧,一部分视频
+            ->none-->页面加载时不加载视频
+    
