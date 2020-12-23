@@ -1,0 +1,20 @@
+Promise构造函数的参数中的函数是同步代码,直接运行
+
+常见的宏任务:
+    1.script(可以理解为外层同步代码)
+    2.setTimeout和setInterval
+    3.setImmediate(Node.js)
+    4.I/O
+    5.UI事件
+    6.postMessage
+常见的微任务:
+    1.Promise后的then事件
+    2.process.nextTick(Node,js)
+    3.Object.observe
+    4.MutaionObserver
+
+scrollWidth-->对象的实际内容的宽度,不包括边线宽度,当内容小于对象宽度时等于对象的宽度,会随着对象中内容超过可视区后而变大
+clientWidth-->对象内容的可视区的宽度,不包括滚动条等边线,包括padding,会随着对象显示大小的变化而改变
+offsetWidth-->对象整体的实际宽度,包括滚动条,边框,内填充,会随着对象显示大小的变化而改变
+scrollHeight,clientHeight,offsetHeight同理
+

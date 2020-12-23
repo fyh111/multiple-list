@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="hahaha"></div>
+        <p class="more">down</p>
+    </div>
+    
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            position: relative;
+            width: 100px;
+        }
+        .hahaha{
+            width: 100px;
+            height: 50px;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        .more{
+            display: none;
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 20px;
+            width: 40px;
+        }
+    </style>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        var initial = $(".hahaha").height();
+        $(".hahaha").prepend("nihao")
+        // $(".hahaha").prepend("nihaonihaonihaonihaonihaonihaonihaonihaonihaonihaonihaonihao")
+        var hadiv = document.getElementsByClassName("hahaha")[0];
+        var scrollHeight = hadiv.scrollHeight;
+        var clientHeight = hadiv.clientHeight;
+
+        if(clientHeight < scrollHeight){
+            console.log(1);
+            $(".more").show()
+        }
+        $(".more").on("click",function(){
+            if($(this).text()=="down"){
+                $(".hahaha").css({
+                    "overflow": "visible",
+                    "height": hadiv.scrollHeight,
+                })
+                $(this).text("up");
+            }else{
+                $(".hahaha").css({
+                    "overflow": "hidden",
+                    "height": initial
+                })
+                $(this).text("down")
+            }
+            
+        })
+    </script>
+</body>
+</html>
