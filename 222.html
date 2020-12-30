@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="container">
         <div class="hahaha"></div>
         <p class="more">down</p>
     </div>
-    
+
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
         }
-        .container{
+
+        .container {
             position: relative;
             width: 100px;
         }
-        .hahaha{
+
+        .hahaha {
             width: 100px;
             height: 50px;
             word-wrap: break-word;
             overflow: hidden;
+            box-shadow: 0px 2px 4px 0px red outset;
         }
-        .more{
+
+        .more {
             display: none;
             position: absolute;
             bottom: -20px;
@@ -45,26 +51,63 @@
         var scrollHeight = hadiv.scrollHeight;
         var clientHeight = hadiv.clientHeight;
 
-        if(clientHeight < scrollHeight){
+        if (clientHeight < scrollHeight) {
             console.log(1);
             $(".more").show()
         }
-        $(".more").on("click",function(){
-            if($(this).text()=="down"){
+        $(".more").on("click", function () {
+            if ($(this).text() == "down") {
                 $(".hahaha").css({
                     "overflow": "visible",
                     "height": hadiv.scrollHeight,
                 })
                 $(this).text("up");
-            }else{
+            } else {
                 $(".hahaha").css({
                     "overflow": "hidden",
                     "height": initial
                 })
                 $(this).text("down")
             }
-            
+
         })
+
+        function tet(x) {
+            return Promise.resolve(x)
+        }
+
+        async function test() {
+            const a = await tet(11);
+            console.log(a);
+            // console.log(11);
+            console.log(22);
+        }
+        test();
+        console.log(33);
+
+
+        // console.log("task start");
+        // task1();
+        // setTimeout(() => {
+        //     console.log("setTimeout");
+        // });
+        // new Promise(resolve => {
+        //     console.log("promise");
+        //     resolve();
+        // }).then(() => {
+        //     console.log("promise 1");
+        // });
+
+        // async function task1() {
+        //     await task2();
+        //     console.log("task1");
+        // }
+        // async function task2() {
+        //     console.log("task2");
+        // }
+        // console.log("task end");
+        
     </script>
 </body>
+
 </html>

@@ -1,20 +1,30 @@
 Promise构造函数的参数中的函数是同步代码,直接运行
+process.nextTick在微任务中的优先级高于promise.then(),故先于promise.then()执行
 
-常见的宏任务:
+常见的宏任务:(macrotasks)
     1.script(可以理解为外层同步代码)
     2.setTimeout和setInterval
     3.setImmediate(Node.js)
     4.I/O
     5.UI事件
     6.postMessage
-常见的微任务:
+常见的微任务:(microtasks)
     1.Promise后的then事件
     2.process.nextTick(Node,js)
     3.Object.observe
     4.MutaionObserver
+    5.async/await
 
 scrollWidth-->对象的实际内容的宽度,不包括边线宽度,当内容小于对象宽度时等于对象的宽度,会随着对象中内容超过可视区后而变大
 clientWidth-->对象内容的可视区的宽度,不包括滚动条等边线,包括padding,会随着对象显示大小的变化而改变
 offsetWidth-->对象整体的实际宽度,包括滚动条,边框,内填充,会随着对象显示大小的变化而改变
 scrollHeight,clientHeight,offsetHeight同理
 
+Promise.resolve(x)可以看做是new Promise(resolve => resolve(x))的简写,可以用于快速封装字面量对象或其他对象,将其封装成promise实例
+箭头函数中的this是继承至他词法最近的一层普通函数的this指向
+
+async/await 在底层转换成了 promise 和 then 回调函数。
+也就是说，这是 promise 的语法糖。
+每次我们使用 await,解释器都创建一个 promise 对象，
+然后把剩下的 async 函数中的操作放到 then 回调函数中。
+即await后紧跟的代码操作作为promise的参数，将await之后的代码操作放到then回调中。
