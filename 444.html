@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="div1">
+        <div class="div2">
+            
+        </div>
+        <span class="span1">2</span>
+    </div>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .div1{
+            height: 100px;
+            width: 200px;
+            position: relative;
+            background-color: aqua;
+        }
+        .div2{
+            position: relative;
+            top: 0;
+            left: 0;
+            height: 0;
+            width: 0;
+            border-top: 25px solid yellow;
+            border-left: 25px solid yellow;
+            border-right: 25px solid transparent;
+            border-bottom: 25px solid transparent;;
+        }
+        .span1{
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+    </style>
+</body>
+</html>
