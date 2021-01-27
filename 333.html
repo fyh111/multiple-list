@@ -78,6 +78,35 @@
         setTimeout(function(){
             console.log(a);
         },3500)
+        
+        // 升序函数
+        function upsort(a,b){
+            if(a<b){
+                return -1;
+            }else if(a>b){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        // 降序函数
+        function downsort(a,b){
+            if(a<b){
+                return 1;
+            }else if(a>b){
+                return -1;
+            }else{
+                return 0;
+            }
+        }
+
+        var aa = [1,5,13,8,6,17,23,1,5,9,48]
+        aa.sort(upsort);
+        console.log(aa);
+        aa.sort(downsort);
+        console.log(aa);
+        aa.sort(function(a,b){return a-b});//升序
+        console.log(aa);
     </script>
 </body>
 </html>

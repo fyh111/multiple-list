@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .haha{
+            height: 100px;
+            width: 100px;
+            border: 10px solid blue;
+            border-top-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="haha"></div>
+    <script>
+        // 稳妥构造函数模式，不带this和不用new
+        function People(name){
+            var o = new Object();
+            o.name = name;
+            o.sayName = function(){
+                console.log(name);
+            }
+            return o;
+        }
+        var fyh = People('fanyuhua');
+        fyh.sayName();
+        // 寄生构造函数模式
+        function Persons(name,age){
+            var o = new Object();
+            o.name = name;
+            o.age = age;
+            o.sayName = function(){
+                console.log(this.name);
+            }
+            return o
+        }
+        var fff = new Persons('fanyuhua',23);
+        fff.sayName()
+        console.log(fff.__proto__);
+        console.log(Persons.prototype);
+        // 
+        function Fyh(name){
+            this.name = name
+        }
+        var fyh = new Fyh("fan")
+        console.log(fyh.constructor);
+        console.log(fyh.__proto__.constructor === fyh.constructor);
+    </script>
+</body>
+</html>

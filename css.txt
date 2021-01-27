@@ -1,4 +1,14 @@
-box-shadow:x偏移量|y偏移量|阴影模糊半径|阴影扩散半径|阴影颜色|(inset)
+box-shadow: x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 | (inset)
     阴影模糊半径:阴影的模糊程度
     阴影扩散半径:阴影的宽度
     最后不写inset则阴影显示在div外部,写inset则阴影显示在div内部
+box-sizing: content-box | border-box
+    content-box: W3C标准盒模型,设置border,padding会向外扩充
+    border-box: IE(怪异)盒模型,设置border,padding不会向外扩充,会向内挤压
+white-space: normal | pre | nowrap | pre-wrap | pre-line | inherit
+    normal: 默认,空白会被忽略
+    pre: 空白会被保留,类似HTML的<pre>标签
+    nowrap: 文本不会换行,文本会在同一行上继续,直到遇到<br>标签为止
+    pre-wrap: 保留空白符,正常地进行换行
+    pre-line: 合并空白符,保留换行符
+    inherit: 继承父元素的white-space属性的值

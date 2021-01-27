@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var ua = window.navigator.userAgent;
+        var check = [/QIHU\s360SE/i,/QQBrowser/i,/MetaSr/i,/Edg/i,/Trident/i,/Win(?=\d{2})/,/WOW(?=\d{2})/];
+        var browser = ['360se','QQ浏览器','搜狗浏览器','edge浏览器','IE浏览器','Chrome浏览器','猎豹浏览器']
+        for(var index in check){
+            if(check[index].test(ua)){
+                alert(browser[index]);
+                break;
+            }
+        }
+    </script>
+</body>
+</html>

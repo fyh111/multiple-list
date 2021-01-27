@@ -40,5 +40,18 @@
             left: 15px;
         }
     </style>
+    <script>
+        // "use strict"
+        // 变量提升和函数提升
+        console.log(a);
+        function a(){
+            console.log(111);
+        }
+        console.log(a);
+        var a;
+        console.log(a);
+        a = 0;
+        console.log(a);
+    </script>
 </body>
 </html>
