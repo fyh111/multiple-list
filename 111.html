@@ -14,7 +14,7 @@
     <h4 style="margin-top: 70px;">hahahhaha</h4>
     <style>
         body{
-            background-image: url(http://p3.qhimg.com/t015cf502f448f40972.jpg);
+            /* background-image: url(http://p3.qhimg.com/t015cf502f448f40972.jpg); */
             background-size: 100% 100%;
         }
         a{
@@ -30,10 +30,49 @@
     </style>
     <script>
         if(!false){
-            console.log(11111);
+            console.log(33333);
         }else{
             console.log(22222);
         }
+
+        function Super(name){
+            this.name = name;
+            this.sayName = function(){
+                console.log("Super");
+            }
+        }
+        Super.prototype.sayHello = function(){
+            alert("hello!")
+        }
+        function Sub(name){
+            Super.call(this,name);
+            this.sayName = function(){
+                console.log("Sub");
+            }
+        }
+        var sub = new Sub('fanyuhua');
+        console.log(sub.name);
+        sub.sayName();
+        try{
+            sub.sayHello();
+        }catch(err){
+            console.log(err);
+        }
+
+        var obj = {
+            name: "fanyuhua",
+            age: 23,
+            hobby: [1,2,3]
+        }
+        var a = Object.create(obj);
+        console.log(a);
+
+        function Aa(name){
+            this.name = name;
+        }
+        Aa.prototype.age = 23;
+        var aa = new Aa('fyh');
+        console.log(aa,"aa");
     </script>
 </body>
 </html>
