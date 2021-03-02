@@ -20,6 +20,7 @@
 <body>
     <div class="haha"></div>
     <script>
+        // "use strict"
         // 稳妥构造函数模式，不带this和不用new
         function People(name){
             var o = new Object();
@@ -52,6 +53,36 @@
         var fyh = new Fyh("fan")
         console.log(fyh.constructor);
         console.log(fyh.__proto__.constructor === fyh.constructor);
+
+        var name = "the window";
+        var object = {
+            name: "the object",
+            getName: function(){
+                return function(){
+                    console.log(this.name);
+                }
+            }
+        }
+        object.getName()();
+
+        void function(){
+            console.log(1111);
+        }()         //void,!,+自执行函数前缀
+
+        var app = function(){
+            var arr = new Array;
+            arr.push(2);
+
+            return {
+                getLength: function(){
+                    return arr.length;
+                },
+                regArr: function(ar){
+                    arr.push(ar)
+                }
+            }
+        }();
+        console.log(app);
     </script>
 </body>
 </html>

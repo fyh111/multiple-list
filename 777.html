@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .div1{
+            padding: 10px;
+        }
+        .scroll{
+            overflow-x: scroll;
+            overflow-y: hidden;
+            width: 30px;
+            height: 30px;
+            white-space: nowrap;
+            padding: 20px;
+            border: 10px solid red;
+        }
+        img{
+            height: 200px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="open" onclick="window.open('888.html',null,'height=400,width=300')">
+    <a href="http://www.baidu.com" class="jump">点击此处跳转至百度</a>
+    <div class="div1" style="background-color: aqua;">
+        <div class="div2">
+            <p class="p1">nihao</p>
+        </div>
+    </div>
+    <div class="scroll">hihao hihao hihao hihao hihao hihao hihao hihao hihao </div>
+    <img src="42.gif" alt="42">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        if(history.length!=0){
+            setTimeout(function(){
+                console.log(222);
+            },5000)
+        }
+        var mySet = setTimeout(fu,1000);
+        function fu(){
+            console.log(111);
+        }
+
+        $("body").on("click",".jump",function(e){
+            console.log(11111);
+            console.log(22222);
+            var a = new Promise((resolve,reject)=>{
+                console.log("promise");
+                resolve(12)
+            }).then(function(res){
+                console.log(res);
+                return false;
+            })
+            console.log(a);
+            return false;
+            // e.defaultPrevented = false;
+            
+        });
+        var div2 = document.querySelector(".div2");
+        // div2.outerHTML = "<p>tianjia</p>";
+        console.log(div2.children);
+        var div1 = document.querySelector(".div1");
+        console.log(div1.style.cssText);
+        div1.style.cssText="font-weight:bold;"
+        console.log(div1.style.length);
+        // div1.style.removeProperty("font-weight");
+        // console.log(div1.style.length)
+        console.log($(".scroll").get(0).offsetHeight);
+        console.log($(".scroll").get(0).clientHeight);
+    </script>
+</body>
+</html>

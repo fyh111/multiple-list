@@ -107,4 +107,75 @@ Object对象方法:
         }
     })
 
+function obj(name,age){
+    name += "1";
+    age += 1;
+}
+function oobj(){
+    obj("fyh",23);
+}
+arguments是一个函数的参数数组,在obj函数中,arguments=[name,age]
+arguments.callee指的是这个arguments所在的函数,即obj函数,编写递归函数时使用，用arguments.callee代替函数名
+arguments.callee.caller指的是调用这个函数的函数,即oobj函数
 
+延长作用域链的方法：
+    1.try-catch语句中的catch部分
+    2.with语句部分,该部分向作用域链的前端新加了作用域,with内部定义的变量是函数执行环境中的一部分,因而函数可以返回该变量
+    例:function uuu(){
+        var qs = "?debug=true";
+        with(location){
+            var url = href + qs;
+        }
+        return url;
+    }
+
+函数声明只能创建局部函数，
+初始化未经声明的变量，总会创建一个全局变量
+严格模式下，给未经声明的变量赋值会报错
+
+全局变量不能通过delete操作符删除，而直接在window对象上定义的属性可以使用delete操作符删除
+
+在a函数内部的b函数内可以访问到a函数作用域内的变量，这就是闭包
+
+for(var i=0;i<5;i++){
+    arr[i]=function(){
+        console.log(i)
+    }
+}
+里面的i变量会存放在栈中,函数会存放在堆中,只有当这个函数执行时才会从栈中去读取i的值,所以每次都是输出5
+
+在代码过程中,尽量使用setTimeout来代替setInterval,所以最好不要使用setInterval
+
+元素节点------1----nodeName:标签大写----nodeValue:null
+属性节点------2----nodeName:属性名称----nodeValue:属性值
+文本节点------3----nodeName:#text-------nodeValue:文本内容
+注释节点------8----nodeName:#comment----nodeValue:注释的内容
+文档节点------9----nodeName:#document---nodeValue:null
+获取某个节点的所有子节点:somenode.childNodes
+appendChild(node):想childNodes列表末尾添加一个新的节点node,并返回node
+insertBefore(newNode, node):在childNodes中将newNode插入到node之前,返回插入节点newNode
+replaceChild(newNode, node):在childNodes中将node替换为newNode,并返回被替换节点node
+removeChild(node):在childNodes中移除node节点,并返回被移除的节点node
+
+e.target指向的是点击事件的具体触发对象
+e.currentTarget指向的是绑定事件监听的那个对象
+e.currentTarget属性在事件处理函数中始终与this相等
+用原生js的事件注册和jquery的事件注册是不同的
+例: jquery:--->$("ul").on("click","li",function(){})
+    当点击其中一个li时，this,e.target,e.currentTarget指的都是点击的那个li
+    当没有指定selector时，this,e.target,e.currentTarget指代的内容与原生js一致
+    原生js---->ul.addEventListener("click",function(){})
+    当点击其中一个li时，this和e.currentTarget指的是这个ul，e.target指的是点击的那个li
+
+标准事件对象:
+    event.target获取事件目标
+    event.preventDefault()取消事件的默认行为
+    event.stopPropagation()禁止事件冒泡
+    this的值等于被绑定的元素
+IE事件对象:
+    event.srcElement获取事件目标
+    event.returnValue=false取消事件的默认行为
+    event.cancelBubble=true禁止事件冒泡
+    this的值等于window
+
+$.ajax请求中，jsonp是不支持post请求的

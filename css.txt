@@ -13,3 +13,8 @@ white-space: normal | pre | nowrap | pre-wrap | pre-line | inherit
     pre-line: 合并空白符,保留换行符
     inherit: 继承父元素的white-space属性的值
 在IE10及以下position:absolute之后的层级不起作用时,在css中添加background: url(about:blank);<<<重要>>>
+
+-webkit-: 谷歌，Safari，新版Opera浏览器
+-moz-: 火狐浏览器
+-o-: 旧版Opera浏览器
+-ms-: IE浏览器和Edge浏览器

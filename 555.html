@@ -1,33 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <ul id="ul1">
+        <li class="li1 a1 a2 a3">0 1</li>
+        <li name="li2">0 2</li>
+        <li id="li3" data-fyh="fyh" style="padding: 10px;">0 3</li>
+        <li id="li4">你好你好你好你好你好你好你好你好</li>
+        <li id="li5"><a>
+                <!-- nihao --></a></li>
+    </ul>
+    <!-- ul#ul2>li{$$$}*3 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
         var ua = window.navigator.userAgent;
-        var check = [/QIHU\s360SE/i,/QQBrowser/i,/MetaSr/i,/Edg/i,/Trident/i,/Win(?=\d{2})/,/WOW(?=\d{2})/];
-        var browser = ['360se','QQ浏览器','搜狗浏览器','edge浏览器','IE浏览器','Chrome浏览器','猎豹浏览器']
-        for(var index in check){
-            if(check[index].test(ua)){
-                alert(browser[index]);
+        var check = [/QIHU\s360SE/i, /QQBrowser/i, /MetaSr/i, /Edg/i, /Trident/i, /Win(?=\d{2})/, /WOW(?=\d{2})/];
+        var browser = ['360se', 'QQ浏览器', '搜狗浏览器', 'edge浏览器', 'IE浏览器', 'Chrome浏览器', '猎豹浏览器']
+        for (var index in check) {
+            if (check[index].test(ua)) {
+                // alert(browser[index]);
                 break;
             }
         }
-        function aler(name){
+
+        function aler(name) {
             name += 'nihao';
             console.log(name);
         }
-        function qwer(){
-            return new Promise((resolve,reject)=>{
+
+        function qwer() {
+            return new Promise((resolve, reject) => {
                 var name = 'fanyuhua';
                 name += 666;
                 resolve(name)
             })
         }
+        var fac = (function f(num) {
+            if (num <= 1) {
+                return 1
+            } else {
+                return num * arguments.callee(--num)
+            }
+        })
+        console.log(fac(5), '阶乘');
+        var anotherFac = fac;
+        fac = null;
+        console.log(anotherFac(5), '阶乘');
+
+        var myList = document.getElementById("ul1");
+        // var myList = document.querySelector("#ul1");
+        console.log(myList.firstChild, "------x");
+        var deepList = myList.cloneNode(true)
+        console.log(deepList.childNodes);
+        var shallowList = myList.cloneNode(false);
+        console.log(shallowList.childNodes.length);
+        for (var i = 0; i < myList.childNodes.length; i++) {
+            if (myList.childNodes[i].nodeType == 3 && !/\S/.test(myList.childNodes[i]
+                .nodeValue)) { //去除childNodes中的空文本节点
+                myList.removeChild(myList.childNodes[i]);
+                console.log(1);
+            }
+        }
+        console.log(myList.childNodes);
+
+        $("#ul1").on("click", "li", function (e) {
+            console.log(this);
+            console.log(e.target);
+            console.log(e.currentTarget);
+        })
+        $("#ul1").on("click", function (e) {
+            console.log(this);
+            console.log(e.target);
+            console.log(e.currentTarget);
+        })
+
+        var ul = document.getElementById("ul1");
+        ul.addEventListener("click", function (e) {
+            console.log(this);
+            console.log(e.target);
+            console.log(e.currentTarget);
+        })
+
+        var lis = document.getElementsByTagName("li");
+        var li2 = lis.namedItem("li2");
+        console.log(li2);
+
+        (function () {
+            var _NS = function () {};
+            _NS.prototype.alert = function () {
+                console.log('test');
+            }
+            window.NS = new _NS()
+        })()
+        NS.alert();
+        // $(function(){
+        //     document.write("hahaha")
+        //     // 文档加载完成之后重写页面
+        // })
+        var li3 = document.getElementById("li3");
+        var data = li3.getAttribute("data-fyh");
+        console.log(data);
+        console.log(li3.id);
+        console.log(li3.style);
+
+        var li4 = myList.childNodes[3].childNodes[0]; //选取文本节点
+        // console.log(li4.nodeValue);
+        // console.log(li4);
+        // li4.deleteData(1,3);
+        // li4.insertData(1,"lll");
+        li4.splitText(5);
+        // 分割文本节点之后，原本的li4指向变成了分割之后的第一个文本节点，所以后续的操作是在这第一个文本节点上进行
+        // console.log(li4);
+        li4.nodeValue = "<?=fanyuhua?>";
+        li4.appendData("haha");
+
+        console.log(document.readyState);
+        var div = document.createElement("div");
+        div.className = "div1";
+        div.id = "div1";
+        var cont = document.createTextNode("hahahahahahahaha");
+        div.appendChild(cont);
+        var cont1 = document.createTextNode("qwqewqeqeq");
+        div.appendChild(cont1);
+        var com = document.createComment("fanyuhua");
+        div.appendChild(com);
+        console.log(div.childNodes.length);
+        // div.normalize();//规范化node节点的子节点中的文本节点，将多个文本节点拼接成一个文本节点
+        // console.log(div.childNodes.length);
+        document.body.appendChild(div);
+        console.log(div.childNodes);
+
+        var li5 = myList.lastChild;
+        console.log(li5.childNodes[0].childNodes[0]);
+        var li5 = myList.lastChild.lastChild.lastChild;
+        console.log(li5);
+
+        function ad(health, blue) {
+            console.log(arguments[0]);
+            console.log(arguments.blue);
+            console.log(arguments.callee);
+        }
+        ad(123, 12);
+
+        var fragment = document.createDocumentFragment();
+        var ul = document.getElementById("ul1");
+        var li = null;
+        for (var i = 0; i < 3; i++) {
+            li = document.createElement("li");
+            li.appendChild(document.createTextNode(`item_${i+1}`));
+            // li.appendChild(document.createTextNode('item_'+(i+1)));
+            fragment.appendChild(li);
+            // ul.appendChild(li);
+        }
+        console.log(fragment.nodeName);
+        console.log(fragment.nodeValue);
+        console.log(fragment.nodeType);
+        console.log(fragment.parentNode);
+        ul.appendChild(fragment);
+
+        var lis = document.querySelectorAll("li");
+        console.log(lis);
+        var bo = lis.item(0).webkitMatchesSelector(".li1"); //Chrome
+        // var bo = lis[0].msMatchesSelector(".li1");  //IE
+        console.log(bo);
+
+        console.log(myList.childElementCount);
+        console.log(myList.firstElementChild);
+        var classlist = myList.firstElementChild.classList;
+        console.log(classlist.item(2));
+        classlist.add("a2");
+        console.log(classlist.contains("a4"));
+        classlist.remove("a1");
+        console.log(classlist);
+        classlist.toggle("a1");
+        console.log(classlist);
+        classlist.toggle("a1");
+        console.log(classlist);
+
+        $("<div>",{
+            class: "test",
+            text: "click me!",
+            click: function(e){
+                console.log($(e.target).get(0).classList);
+            }
+        }).appendTo($("body"));
+        console.log(document.readyState);
     </script>
 </body>
 </html>
