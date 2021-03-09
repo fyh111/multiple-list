@@ -161,21 +161,137 @@ e.target指向的是点击事件的具体触发对象
 e.currentTarget指向的是绑定事件监听的那个对象
 e.currentTarget属性在事件处理函数中始终与this相等
 用原生js的事件注册和jquery的事件注册是不同的
-例: jquery:--->$("ul").on("click","li",function(){})
+例: jquery:--->$("ul").on("click","li",function(e){})
     当点击其中一个li时，this,e.target,e.currentTarget指的都是点击的那个li
-    当没有指定selector时，this,e.target,e.currentTarget指代的内容与原生js一致
-    原生js---->ul.addEventListener("click",function(){})
-    当点击其中一个li时，this和e.currentTarget指的是这个ul，e.target指的是点击的那个li
+    当没有指定selector时，this,e.target,e.currentTarget指代的内容与原生js一致↓↓↓↓↓↓
+    原生js---->ul.addEventListener("click",function(e){})
+    当事件绑定对象有子元素如ul时,点击子元素,e.target指的是子元素,this和e.currentTarget指的是该事件绑定对象
+    当事件绑定对象没有子元素如li时,点击该元素,this,e.target,e.currentTarget指代的内容一致,都是该元素
 
+HTML事件处理程序：
+DOM事件处理程序：
+    DOM0级:btn.onclick=function(){}
+    DOM2级:btn.addEventListener(),btn.removeEventListener(),这两个方法都接受三个参数，分别为事件名，事件处理程序函数，以及一个布尔值，布尔值为true表示在捕获阶段触发事件，为false时表示在冒泡阶段触发事件
+    添加的匿名函数将无法通过removeEventListener移除，必须都使用具名函数进行移除
+    通过addEventListener添加的多个事件会按照顺序进行触发,即先添加先执行
+IE事件处理程序：
+    attachEvent(),detachEvent()都接受两个参数,第一个参数是带"on"的事件名，如"onclick",添加的事件处理程序会被添加到冒泡阶段
+    添加的匿名函数将无法通过detachEvent移除
+    通过attachEvent添加的事件会按照相反的顺序执行,即后添加先执行
+    使用DOM0级方法,事件处理程序会在其所属元素的作用域内运行
+    使用attachEvent方法,事件处理程序会在全局作用域内运行,此时this等于window
 标准事件对象:
     event.target获取事件目标
     event.preventDefault()取消事件的默认行为
-    event.stopPropagation()禁止事件冒泡
-    this的值等于被绑定的元素
+    event.stopPropagation()禁止事件冒泡(可以同时取消事件的捕获和冒泡)
+    this的值等于被绑定的元素，也就是event.currentTarget
+    event.eventPhase指明事当前正位于事件流的哪个阶段,1代表事件捕获阶段,2代表事件目标阶段,3代表事件冒泡阶段
 IE事件对象:
-    event.srcElement获取事件目标
+    event对象是window对象的一个属性
+    event.srcElement获取事件目标√
     event.returnValue=false取消事件的默认行为
     event.cancelBubble=true禁止事件冒泡
-    this的值等于window
+    使用attachEvent绑定事件时,事件会在全局作用域下运行,this的值等于window
+
+js事件类型:
+UI事件: 
+    load事件:
+        window.onload = function(){}, window.addEventListener("load",function(){})
+    unload事件:
+        window.addEventListener("unload",function(){})
+    beforeunload事件:
+        window.onbeforeunload = function (e) {
+            var e = e || window.event;
+            if (e) {
+                e.returnValue = ("是否关闭？");
+            }
+            return "是否关闭？";
+        };固定格式这么写，其中的字符串可以任意
+    resize事件:
+        window.onresize = function(){}
+    scroll事件:
+        window.onscroll = function(){}
+焦点事件:
+    focus事件:
+        元素获得焦点时触发,此事件不冒泡,input.onfocus = function(){},input.addEventListener("focus",function(){})
+    blur事件:
+        元素失去焦点时触发,此事件不冒泡,input.onblur = function(){},input.addEventListener("blur",function(){})
+    focusin:
+        元素获得焦点时触发,此事件可以冒泡,input.addEventListener("focusin",function(){})
+    focusout:
+        元素失去焦点时触发,此事件可以冒泡,input.addEventListener("focusout",function(){})
+鼠标与滚轮事件:
+    mouseenter事件:
+        鼠标进入该元素时触发事件,DOM0级,DOM2级事件注册
+    mouseleave事件:
+        鼠标离开该元素时触发事件,DOM0级,DOM2级事件注册
+    mouseover事件:
+        鼠标进入该元素及其子元素时触发事件,DOM0级,DOM2级事件注册
+    mouseout事件:
+        鼠标离开该元素及其子元素时触发事件,DOM0级,DOM2级事件注册
+    mousemove事件:
+        鼠标在元素内部移动时触发事件,DOM0级,DOM2级事件注册
+    mousedown事件:
+        鼠标按下时触发事件,DOM0级,DOM2级事件注册
+    mouseup事件:
+        鼠标松开时触发事件,DOM0级,DOM2级事件注册
+    click事件:
+        相继触发mousedown和mouseup事件时触发事件,DOM0级,DOM2级事件注册
+    dblclick事件:
+        连续触发两次click事件时触发事件,DOM0级,DOM2级事件注册
+鼠标事件中event对象属性:
+    客户区坐标位置:
+        event.clientX,event.clientY
+    页面坐标位置:
+        event.pageX,event.pageY
+    屏幕坐标位置:
+        event.screenX,event.screenY
+    修改键:
+        event.shiftKey,event.ctrlKey,event.altKey,event.metaKey
+        输出为布尔值,表示Shift键,Ctrl键,Alt键,window键是否按下
+相关元素:(只对mouseover和mouseout有值,其他事件返回null)
+    DOM:
+        event.relatedTarget
+    IE8←:
+        mouseover-->event.fromElement
+        mouseout-->event.toElement
+鼠标按钮:
+    event.button:
+        0:表示主鼠标按钮,即左键
+        1:表示中间的鼠标按钮,即中键
+        2:表示次鼠标按钮,即右键
+更多的事件信息:
+    event.detail:
+        对于鼠标事件来说,表示在给定的位置上一次点击了多少次
+鼠标的滚轮事件:
+    window.onmousewheel = function(event){event.wheelDelta}
+    event.wheelDelta:滚轮向前滚动时为120,向后滚动时为-120.(鼠标滚轮增量值)
+键盘与文本事件:
+    event.keyCode属性-->keydown,keyup,keypress时有值
+    event.charCode属性-->keypress时有值
+    获取到event.keyCode或者event.charCode后,可以利用String.fromCharCode()将获取到的编码转换为字符
+变动事件:
+    DOMNodeRemoved:
+        事件可以冒泡,可以绑定到DOM的任何层次上,绑定到document上
+        移除节点时触发,DOM2级事件注册,event.target指向被删除的节点,event.relatedNode指向删除节点的父节点
+        删除节点之后触发当前节点的DOMNodeRemovedFromDocument事件,之后再触发DOMSubtreeModified事件(DOM结构发生变化时触发,可以绑定到document上)
+    DOMNodeInserted:
+        事件可以冒泡,可以绑定到DOM的任何层次上,绑定到document上
+        插入节点时触发,DOM2级事件注册,event.target指向插入的节点,event.relatedNode指向插入节点的父节点
+        插入节点之后触发当前节点的DOMNodeInsertedIntoDocument事件,之后再触发DOMSubtreeModified事件(DOM结构发生变化时触发,可以绑定到document上)
+HTML5事件:
+contextmenu事件:
+    显示自定义的上下文菜单,使用event.preventDefault()阻止默认的上下文菜单,使用DOM2级方法创建事件
+beforeunload事件:
+    在页面卸载之前触发该事件,会显示一个对话框,必须将event.returnValue的值设置为要显示的字符串(IE和Firefox),同时将该字符串作为函数的值返回,例:
+    window.onbeforeunload = function (e) {
+        var e = e || window.event;
+        e.returnValue = ("是否关闭？");
+        return "是否关闭？";
+    };固定格式这么写，其中的字符串可以任意
+DOMContentLoaded事件:
+    在形成完整的DOM树之后就会触发事件，可以为document或者window添加DOM2级事件，事件的event.target始终是document,该事件始终都会在load事件之前触发.
+
+
 
 $.ajax请求中，jsonp是不支持post请求的

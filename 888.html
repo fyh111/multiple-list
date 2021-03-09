@@ -1,25 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        *{
+    <style type="text/css">
+        * {
             margin: 0;
             padding: 0;
         }
+
+        .div1 {
+            height: 150px;
+            width: 300px;
+        }
+        #div2{
+            height: 300px;
+            width: 300px;
+        }
+        p.p1{
+            white-space: nowrap;
+            transition: color 1s;
+        }
+        p.p1:hover{
+            color: black;
+        }
+        p.animate{
+            transition: color 1s;
+        }
+        p.animate:hover{
+            color: red;
+        }
+        #myMenu{
+            position: absolute;
+            visibility: hidden;
+            background-color: wheat;
+        }
     </style>
 </head>
-<body onload="bao()">
+
+<body>
     <p>nihao</p>
-    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <ul class="ul1">
+        <li class="li1">1</li>
+        <li class="li2">2</li>
+        <li class="li3">3</li>
+    </ul>
+    <div class="div1">
+        <a href="http://www.baidu.com">跳转到百度</a>
+        <input type="text" name="input1" id="input1" class="input1" />
+        <p class="p1">
+            nihao niahao nihao nihao
+        </p>
+    </div>
+    <div id="div2">右键点击打开菜单栏</div>
+    <ul id="myMenu">
+        <li><a href="http://360game.360.cn">360</a></li>
+        <li><a href="http://www.baidu.com">百度</a></li>
+        <li><a href="http://360game.360.cn">360</a></li>
+    </ul>
+    <script src="client.js"></script>
+    <script src="EventUtil.js"></script>
     <script>
-        function bao(){
-            window.moveTo(screen.availWidth,screen.availHeight);
-            window.resizeTo(400,400)
+        var ul1 = document.querySelector(".ul1");
+        var div1 = document.querySelector(".div1");
+        var input1 = document.querySelector(".input1");
+        var p1 = document.querySelector(".p1");
+        var create_a = document.createElement("a");
+        // ul1.addEventListener("click",function(e){
+        ul1.childNodes.item(1).addEventListener("click", function (e) {
+            console.log(this);
+            console.log(e.target);
+            console.log(e.currentTarget);
+        }, false);
+        p1.onmouseenter = function(){
+            p1.classList.toggle("animate");
         }
+        p1.onmouseleave = function(){
+            p1.classList.toggle("animate");
+        }
+        setTimeout(function(){
+            p1.appendChild(create_a);
+            p1.removeChild(create_a);
+        },100)
+        p1.addEventListener("DOMNodeInserted",function(event){
+            console.log(event.target,"target");
+            console.log(event.relatedNode,"relatedNode");
+        })
+        p1.addEventListener("DOMSubtreeModified",function(event){
+            console.log(event.target,"target");
+        })
+        p1.addEventListener("DOMNodeRemoved",function(event){
+            console.log(event.target,"target");
+            console.log(event.relatedNode,"relatedNode");
+        })
+        input1.onfocus = function(){
+            // alert("input1-focus");
+        }
+        input1.onblur = function(){
+            // alert("input1-blur");
+        }
+        input1.addEventListener("focusin",function(){
+            // alert("input1-focusin");
+        })
+        input1.addEventListener("keypress",function(event){
+            // console.log(event.keyCode,"键码",event.charCode,"ASCII编码");
+            var code = event.keyCode || event.charCode;
+            // console.log(String.fromCharCode(code));
+        })
+        input1.addEventListener("keydown",function(event){
+            // console.log(event.key);
+            // console.log(event.location);
+            // console.log(event.altKey);
+            // console.log(event.getModifierState("Meta"));//Shift,Control,Alt,Meta
+        })
+        input1.addEventListener("textInput",function(event){
+            // console.log(event.data,"用户输入的字符");
+        })
+        div1.onmouseenter = function(){
+            // alert("div1-mouseenter");
+        }
+        div1.onmouseleave = function(){
+            // alert("div1-mouseleave");
+        }
+        
+        // $(".ul1").on("click","li",function(e){
+        // $(".ul1").on("click",function(e){
+        //     console.log(this);
+        //     console.log(e.target);
+        //     console.log(e.currentTarget);
+        // });
+        document.body.onclick = function(e){
+            // console.log(e.clientX,e.clientY,"客户区坐标位置");
+            // console.log(e.pageX,e.pageY,"页面坐标位置");
+            // console.log(e.screenX,e.screenY,"屏幕坐标位置");
+            // console.log(e.shiftKey,e.altKey,e.ctrlKey,e.metaKey,"shift,alt,ctrl,meta");
+            // console.log(event.detail);
+        };
+        document.body.onmousedown = function(e){
+            console.log(EventUtil.getButton(e));
+        }
+        function a(qwe) {
+            alert(qwe);
+        }
+
+        function b(num) {
+            return function () {
+                // a(num);
+            }
+        }
+        setTimeout(b(123),3000);
+
+        
+
+        // $(window).on("load", function () {
+            // alert("load事件要绑定在window上");
+        // });
+        window.addEventListener("load", function () {
+            // alert("ok");
+        });
+        window.onload = function (event) {
+            // alert("load事件");
+            console.log(event.target,"load事件的event.target");
+        }
+        window.addEventListener("load",function(){
+            var img = new Image();
+            img.addEventListener("load",function(event){
+                // alert("img is ok");
+            });
+            img.src="42.gif";
+            document.body.appendChild(img);
+        });
+        window.onload = function(){
+            console.log("load事件");
+            var div = document.getElementById("div2");
+            div.addEventListener("contextmenu", function(event){
+                event.preventDefault();
+                var menu = document.getElementById("myMenu");
+                menu.style.left = event.clientX + "px";
+                menu.style.top = event.clientY + "px";
+                menu.style.visibility = "visible";
+            })
+            document.body.addEventListener("click",function(event){
+                document.getElementById("myMenu").style.visibility = "hidden";
+            })
+        }
+        window.onbeforeunload = function (e) {
+            // var e = e || window.event;
+            // if (e) {
+            //     e.returnValue = ("是否关闭？");
+            // }
+            // return "是否关闭？";
+        }
+
+        window.onresize = function(event){
+            // alert("resize事件");
+            console.log(event.target,"resize事件的event.target");
+        }
+
+        window.onscroll = function(){
+            if(document.compatMode == "CSS1Compat"){
+                // alert(document.documentElement.scrollTop);
+            }else{
+                // alert(document.body.scrollTop);
+            }
+        }
+
+        window.onmousewheel = function(event){
+            event = EventUtil.getEvent(event);
+            // alert(event.wheelDelta);
+        }
+
+        EventUtil.addHandler(window,"DOMContentLoaded", function(e){
+            console.log(e.target,e.currentTarget);
+            console.log("DOMContentLoaded事件");
+        })
+
+        window.addEventListener("hashchange",function(e){
+            console.log(e.oldURL,"\n",e.newURL,"url的hash参数变化时触发");
+        })
     </script>
 </body>
+
 </html>

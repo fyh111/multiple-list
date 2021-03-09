@@ -37,7 +37,21 @@
         </div>
     </div>
     <div class="scroll">hihao hihao hihao hihao hihao hihao hihao hihao hihao </div>
-    <img src="42.gif" alt="42">
+    <img src="42.gif" alt="42" onload="alert('show over')">
+    <p id="p1"><b>Hello</b>World</p>
+    <input type="button" value="click me!" id="input1" onclick="alert(event.type)">
+    <input type="button" value="click me!" onclick="alert(value)">
+    <form method="post">
+        <input type="text" name="username" value="">
+        <input type="button" value="output name" onclick="alert(username.value)">
+    </form>
+    <div id="div3">
+        <div id="div4">
+            <div id="div5">
+                <p id="p2">事件处理</p>
+            </div>
+        </div>
+    </div>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
         if(history.length!=0){
@@ -76,6 +90,39 @@
         // console.log(div1.style.length)
         console.log($(".scroll").get(0).offsetHeight);
         console.log($(".scroll").get(0).clientHeight);
+
+        var p1 = document.querySelector("#p1"),
+            hello = p1.firstChild.firstChild,
+            world = p1.lastChild,
+            range = document.createRange();
+        range.selectNode(hello);
+        var span = document.createElement("span");
+        span.style.backgroundColor = "yellow";
+        range.surroundContents(span);
+        range.collapse(true);
+        console.log(range.collapsed);
+        console.log(range);
+        range.detach();
+        range=null;
+        
+        $("body").on("click",".div2",function(e){
+            e.stopPropagation();
+            alert(this);
+        }).on("click",".div1",function(e){
+            alert("div1");
+        });
+
+        var input1 = document.querySelector("#input1");
+        input1.onclick = null; //取消事件处理程序
+    
+        var div3 = document.getElementById("div3");
+        div3.addEventListener("click",function(e){
+            console.log("div3");
+        },true);
+        var p2 = document.getElementById("p2");
+        p2.addEventListener("click",function(e){
+            console.log("p2");
+        });
     </script>
 </body>
 </html>
