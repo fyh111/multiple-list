@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            overflow: hidden;
+        }
+        iframe{
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="https://redir.wggames.cn/lsp4wzlt/?pub_id=yxdt_0325_wows_obt2&xid=INSERT_YOUR_XID_HERE" frameborder="0" name="iiframe"></iframe>
+    <script>
+        var url = window.location.search.slice(1).split("&");
+        var cook = {};
+        for(var i=0,len=url.length;i<len;i++){
+            var arr = url[i].split("=");
+            cook[arr[0]] = arr[1];
+        }
+        var doc;
+        try {
+            doc = document.frames["iiframe"].document;
+        } catch (error) {
+            doc = window.frames[0].document;
+        }
+        for(var key in cook){
+            doc.cookie=key+"="+cook[key]+";SameSite=none; Secure;domain=.360.cn";
+        }
+    </script>
+</body>
+</html>

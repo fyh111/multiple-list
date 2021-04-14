@@ -38,6 +38,29 @@
             visibility: hidden;
             background-color: wheat;
         }
+        .button1{
+            height: 20px;
+            width: 100px;
+            background-color: aqua;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+        }
+        .button1:hover{
+            background-color: red;
+            outline: none;
+        }
+        .button2{
+            height: 20px;
+            width: 100px;
+            background-color: aqua;
+        }
+        .haha{
+            height: 200px;
+            width: 200px;
+            display: none;
+            background-color: rebeccapurple;
+        }
     </style>
 </head>
 
@@ -50,10 +73,13 @@
     </ul>
     <div class="div1">
         <a href="http://www.baidu.com">跳转到百度</a>
-        <input type="text" name="input1" id="input1" class="input1" />
+        <input type="text" name="input1" id="input1" class="input1" autofocus />
         <p class="p1">
             nihao niahao nihao nihao
         </p>
+        <button class="button1">我是一个按钮</button>
+        <input type="button" value="我是一个按钮" class="button2">
+        <input type="submit" value="我是提交按钮">
     </div>
     <div id="div2">右键点击打开菜单栏</div>
     <ul id="myMenu">
@@ -61,6 +87,8 @@
         <li><a href="http://www.baidu.com">百度</a></li>
         <li><a href="http://360game.360.cn">360</a></li>
     </ul>
+    <div class="haha"></div>
+    <input type="button" value="点我" id="myBtn">
     <script src="client.js"></script>
     <script src="EventUtil.js"></script>
     <script>
@@ -69,6 +97,11 @@
         var input1 = document.querySelector(".input1");
         var p1 = document.querySelector(".p1");
         var create_a = document.createElement("a");
+        var btn = document.getElementById("myBtn");
+        var btn1 = document.querySelector(".button1");
+        btn1.onclick = function(event){
+            console.log(/button1/g.test(event.target.classList));
+        }
         // ul1.addEventListener("click",function(e){
         ul1.childNodes.item(1).addEventListener("click", function (e) {
             console.log(this);
@@ -119,12 +152,34 @@
         input1.addEventListener("textInput",function(event){
             // console.log(event.data,"用户输入的字符");
         })
+        input1.addEventListener("blur",function(event){
+            event.target.value="";
+        })
+        // 模拟input的键盘事件
+        // var ievent = document.createEvent("Events");
+        // ievent.initEvent("keydown",true,true);
+        // ievent.view = document.defaultView;
+        // ievent.altKey = false;
+        // ievent.ctrlKey = false;
+        // ievent.shiftKey = false;
+        // ievent.metaKey = false;
+        // ievent.keyCode = 65;
+        // ievent.charCode = 65;
+        // input1.dispatchEvent(ievent);
+
         div1.onmouseenter = function(){
             // alert("div1-mouseenter");
         }
         div1.onmouseleave = function(){
             // alert("div1-mouseleave");
         }
+        btn.addEventListener("click",function(){
+            // alert("nihao ")
+        })
+        // 模拟button的点击事件
+        var eevent = document.createEvent("MouseEvents");
+        eevent.initMouseEvent("click",true,true,document.defaultView,0,0,0,0,0,false,false,false,false,0,null);
+        // btn.dispatchEvent(eevent);
         
         // $(".ul1").on("click","li",function(e){
         // $(".ul1").on("click",function(e){
@@ -188,11 +243,11 @@
             })
         }
         window.onbeforeunload = function (e) {
-            // var e = e || window.event;
-            // if (e) {
-            //     e.returnValue = ("是否关闭？");
-            // }
-            // return "是否关闭？";
+            var e = e || window.event;
+            if (e) {
+                e.returnValue = ("是否关闭？");
+            }
+            return "是否关闭？";
         }
 
         window.onresize = function(event){
@@ -220,7 +275,16 @@
 
         window.addEventListener("hashchange",function(e){
             console.log(e.oldURL,"\n",e.newURL,"url的hash参数变化时触发");
-        })
+        });
+
+        (function(){
+            var cutDownTime = (new Date(2021,2,16,16,46,0,000)).getTime();
+            var num = cutDownTime - (new Date()).getTime();
+            var myTimeOut = setTimeout(function(){
+                document.getElementsByClassName("haha")[0].style.display = "block";
+            },num)
+        })();
+        
     </script>
 </body>
 

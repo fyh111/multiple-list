@@ -14,6 +14,7 @@
             </div3>
         </div2>
     </div1>
+    <input type="text" name="text" id="input1">
     <script>
         var range = document.body.createTextRange();
         var found = range.findText("Hello");
@@ -52,6 +53,13 @@
         div2.attachEvent("onclick",function(e){
             console.log("div2");
         });
+        // var input1 = document.querySelector("#input1");
+        // var event = document.createEventObject();
+        // event.altKey = false;
+        // event.shiftKey = false;
+        // event.ctrlKey = false;
+        // event.keyCode = 65;
+        // input1.fireEvent("onkeypress",event);
     </script>
 </body>
 </html>

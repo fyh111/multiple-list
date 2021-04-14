@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #input1{
+            background-color: aqua;
+        }
+        #input2{
+
+        }
+    </style>
+</head>
+<body>
+    <form name="form1">
+        <input type="text" name="input1" id="input1" autofocus><br />
+        <input type="text" name="input2" id="input2" size="20" placeholder="最多显示15个字" maxlength="15"><br />
+        <select name="select1" id="select1">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select><br />
+        <input type="radio" name="input_radio" id="man">
+        <label for="man">man</label>
+        <input type="radio" name="input_radio" id="woman">
+        <label for="woman">woman</label><br />
+
+
+        <input type="submit" name="submit" value="提交" id="submit">
+    </form>
+    <script>
+        var form1 = document.forms["form1"];
+
+        var input1 = form1.elements["input1"];
+        var input2 = form1.elements["input2"];
+
+        var select1 = form1.elements["select1"];
+        input1.addEventListener("focus",function(event){
+            input1.style.outline = "none";
+            if(input1.style.backgroundColor == "red"){
+                input1.value = "";
+            }
+            input1.style.backgroundColor="yellow";
+        })
+        input1.addEventListener("blur",function(event){
+            if(input1.style.backgroundColor == "yellow"){
+                input1.style.backgroundColor="aqua";
+            }
+        })
+        input1.addEventListener("change",function(event){
+            if((/\D+/g).test(input1.value)){
+                input1.style.backgroundColor="red";
+            }else{
+                input1.style.backgroundColor="aqua";
+            }
+        })
+        input2.addEventListener("focus",function(event){
+            input2.style.outline = "none";
+            input2.value = "";
+        })
+        select1.addEventListener("change",function(event){
+            console.log("select change");
+        })
+        form1.addEventListener("submit",function(event){
+            var target = event.target || event.srcElement;
+            var input1 = target.elements["input1"];
+            console.log(input1.value);
+            var select1 = target.elements["select1"];
+            console.log(select1.value);
+
+
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

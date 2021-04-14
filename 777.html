@@ -105,24 +105,28 @@
         range.detach();
         range=null;
         
-        $("body").on("click",".div2",function(e){
-            e.stopPropagation();
-            alert(this);
-        }).on("click",".div1",function(e){
-            alert("div1");
-        });
+        $("body").on("click","#div4",function(e){
+            console.log(e.target,11111111111);
+            console.log(e.currentTarget,222222222222);
+        })
+        // $("body").on("click",".div2",function(e){
+        //     e.stopPropagation();
+        //     alert(this);
+        // }).on("click",".div1",function(e){
+        //     alert("div1");
+        // });
 
         var input1 = document.querySelector("#input1");
         input1.onclick = null; //取消事件处理程序
     
-        var div3 = document.getElementById("div3");
-        div3.addEventListener("click",function(e){
-            console.log("div3");
-        },true);
-        var p2 = document.getElementById("p2");
-        p2.addEventListener("click",function(e){
-            console.log("p2");
-        });
+        // var div3 = document.getElementById("div3");
+        // div3.addEventListener("click",function(e){
+        //     console.log("div3");
+        // },true);
+        // var p2 = document.getElementById("p2");
+        // p2.addEventListener("click",function(e){
+        //     console.log("p2");
+        // });
     </script>
 </body>
 </html>

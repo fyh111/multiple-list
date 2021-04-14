@@ -10,4 +10,7 @@
     preload-->auto-->页面加载时加载整个视频
             ->metadata-->页面加载时只加载元数据,例如视频的第一帧,一部分视频
             ->none-->页面加载时不加载视频
-    
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+该标签用于将页面中的http链接改为更安全的https链接

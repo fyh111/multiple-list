@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="div1">
+        <p class="p1">01</p>
+        <p class="p2">02</p>
+        <p class="p3">03</p>
+        <p class="p4">04</p>
+    </div>
+    <iframe src="http://www.baidu.com" frameborder="2" name="iframe1" style="height: 300px;width: 300px;"></iframe>
+    <button class="button1">字体加粗</button>
+    <button class="button2">字号增加</button>
+    <button class="button3">字号减小</button>
+    <button class="button4">字体倾斜</button>
+    <button class="button5">富文本选区</button>
+    <ul class="ul">
+        <li class="li"><a href="javascript:;" class="start">11111</a></li>
+        <li class="li"><a href="javascript:;" class="start">22222</a></li>
+        <li class="li"><a href="javascript:;" class="start">33333</a></li>
+    </ul>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        var div1 = document.querySelector(".div1");
+        var p1 = document.querySelector(".p1");
+        var p3 = document.querySelector(".p3");
+        var btn1 = document.querySelector(".button1");
+        var btn2 = document.querySelector(".button2");
+        var btn3 = document.querySelector(".button3");
+        var btn4 = document.querySelector(".button4");
+        var btn5 = document.querySelector(".button5");
+        // div1.appendChild(p1); // 将元素从原来的位置移动到新位置
+        // div1.insertBefore(p3,p1); // 将元素从原来的位置移动到新的位置,原来位置的元素消失
+        setInterval(() => {
+            div1.appendChild(div1.firstChild);
+        }, 3000);
+
+        window.onload = function(){
+            p1.contentEditable = true;
+            window.frames["iframe1"].document.designMode = "on";
+        }
+        btn1.onclick = function(){
+            // console.log(frames[0].document.queryCommandEnabled("bold"));// 检测是否支持该命令
+            frames[0].document.execCommand("bold",false,null);
+            // console.log(frames[0].document.queryCommandState("bold"));// 检测是否应用了该命令
+        }
+        btn2.onclick = function(){
+            fontsize = frames[0].document.queryCommandValue("fontsize");
+            fontsize++;
+            fontsize = fontsize>7?7:fontsize;
+            frames[0].document.execCommand("fontsize",false,fontsize);
+        }
+        btn3.onclick = function(){
+            fontsize = frames[0].document.queryCommandValue("fontsize");
+            fontsize--;
+            fontsize = fontsize<1?1:fontsize;
+            frames[0].document.execCommand("fontsize",false,fontsize);
+        }
+        btn4.onclick = function(){
+            frames[0].document.execCommand("italic",false,null);
+            console.log(frames[0].getSelection());
+        }
+        btn5.onclick = function(){
+            var selection = frames[0].document.getSelection();
+            var selectionText = selection.toString();
+            var range = selection.getRangeAt(0);
+            var span = frames[0].document.createElement("span");
+            span.style.backgroundColor = "yellow";
+            range.surroundContents(span);
+        }
+        $("body").on("click",".start",function(event){
+            alert($(this).parent().index()+1)
+        })
+    </script>
+</body>
+</html>

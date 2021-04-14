@@ -162,7 +162,8 @@ e.currentTarget指向的是绑定事件监听的那个对象
 e.currentTarget属性在事件处理函数中始终与this相等
 用原生js的事件注册和jquery的事件注册是不同的
 例: jquery:--->$("ul").on("click","li",function(e){})
-    当点击其中一个li时，this,e.target,e.currentTarget指的都是点击的那个li
+    如果这个li没有子元素,则this,e.target,e.currentTarget指的都是点击的那个li
+    如果这个li有子元素,则this.e.currentTarget指的是这个li,e.target指的是点击的那个子元素
     当没有指定selector时，this,e.target,e.currentTarget指代的内容与原生js一致↓↓↓↓↓↓
     原生js---->ul.addEventListener("click",function(e){})
     当事件绑定对象有子元素如ul时,点击子元素,e.target指的是子元素,this和e.currentTarget指的是该事件绑定对象
@@ -295,3 +296,5 @@ DOMContentLoaded事件:
 
 
 $.ajax请求中，jsonp是不支持post请求的
+
+在url的参数列表中添加问号?时,先把带问号?的参数使用encodeURIComponent()编码一下
