@@ -13,5 +13,15 @@
 </head>
 <body>
     <p>fanyuhua</p>
+    <script>
+        var cheight = "传输到父框架里";
+        window.parent.postMessage(cheight,"http://127.0.0.1:5500");
+        window.onmessage = function(event){
+            if(event.origin == "http://127.0.0.1:5500"){
+                document.write(event.data);
+                console.log("获取到数据了");
+            }
+        }
+    </script>
 </body>
 </html>

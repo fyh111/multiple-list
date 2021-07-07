@@ -6,18 +6,48 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="div1" onclick="alert('div1')">
+        <a href="http://www.baidu.com" class="href" target="_blank">点击这里跳转</a>
+    </div>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
         function ookk(){
             return new Promise((resolve,reject)=>{
                 setTimeout(()=>{
                     console.log("nihao");
-                    return resolve("nihaofanyuhua");
-                },3000);
+                    resolve("nihaofanyuhua");
+                    // return resolve("nihaofanyuhua");
+                },1000);
             })
         }
         ookk().then(function(data){
             alert(data);
         });
+
+        var promise1 = Promise.resolve("promise1");
+        var promise2 = Promise.resolve(promise1);
+        promise2.then(data=>{
+            console.log("promise2");
+            return data;
+        }).then(data=>{
+            console.log(data);
+        })
+        // var promise1 = Promise.resolve(42);
+        // var promise1 = new Promise((resolve)=>{
+        //     resolve(42);
+        // }).then((data)=>{
+        //     console.log(data);
+        // })
+        // promise1.then((data)=>{
+        //     console.log(data);
+        // });
+        // var a = document.getElementsByClassName("href")[0];
+        // a.onclick = function(e){
+        //     return false;
+        // }
+        // $(".href").on("click",function(){
+        //     return false;
+        // })
     </script>
 </body>
 </html>

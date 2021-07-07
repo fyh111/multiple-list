@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .div1{
+            height: 300px;
+            width: 500px;
+            background-color: powderblue;
+        }
+        .cav{
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="div1"></div>
+    <canvas class="cav" height="300" width="500"></canvas>
+    <script>
+        var div1 = document.querySelector(".div1");
+        var cav = document.querySelector(".cav");
+        var divStyle = window.getComputedStyle(div1);
+        var divheight = parseInt(divStyle.height);
+        var divwidth = parseInt(divStyle.width);
+        var dk = -divheight/divwidth;
+        var canStyle = window.getComputedStyle(cav);
+        var canheight = parseInt(canStyle.height);
+        var canwidth = parseInt(canStyle.width);
+        var ck = -canheight/canwidth;
+        if(cav.getContext){
+            var ct = cav.getContext("2d");
+            ct.strokeStyle = "#ff0000";
+            ct.beginPath();
+            ct.moveTo(500,0);
+            ct.lineTo(0,300);
+            ct.stroke();
+        }
+        cav.addEventListener("click",function(event){
+            var e = event;
+            console.log(e.clientX-cav.offsetWidth,e.clientY- cav.offsetHeight);
+            if(((e.clientX-cav.offsetWidth) * ck + canheight) > e.clientY - cav.offsetHeight){
+                console.log("在左上方");
+            }else if(((e.clientX-cav.offsetWidth) * ck + canheight) == e.clientY - cav.offsetHeight){
+                console.log("在对角线上");
+            }else{
+                console.log("在右下方");
+            }
+        })
+        div1.addEventListener("click",function(event){
+            var e = event;
+            if((e.clientX * dk + divheight) > e.clientY){
+                console.log("在左上方");
+            }else if((e.clientX * dk + divheight) == e.clientY){
+                console.log("在对角线上");
+            }else{
+                console.log("在右下方");
+            }
+        })
+    </script>
+</body>
+</html>

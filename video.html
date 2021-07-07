@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			span {
+				background-color: aqua;
+			}
+			div {
+				background-color: blanchedalmond;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 
+        autoplay:视频自动播放
+        poster:设置视频未加载完成时显示的图片
+        controls:设置是否显示控件
+        muted:设置是否静音
+        loop:设置是否循环播放
+     -->
+		<video width="400" height="300" autoplay poster="42.gif" controls muted loop>
+			<source src="https://www.runoob.com/try/demo_source/movie.ogg" type="video/ogg" />
+		</video>
+		<span class="span1">p </span>
+		<script>
+			var video = document.getElementsByTagName("video")[0];
+			var span1 = document.querySelector(".span1");
+			console.log(video);
+			try {
+				throw new SyntaxError("sorry,syntaxError");
+			} catch (error) {
+				console.log(error.message);
+			}
+			video.loop = false;
+			// setTimeout(()=>{
+			//     if(!video.ended){
+			//         console.log(video.autoplay);  //获取视频是否自动播放
+			//         console.log(video.poster);  //获取视频未加载完成时显示的图片
+			//         console.log(video.loop);  //获取视频是否循环播放
+			//         console.log(video.controls);  //获取视频是否显示控件
+			//         console.log(video.muted);  //获取视频是否静音
+			//         console.log(video.currentSrc);  //获取视频当前播放的src
+			//         console.log(video.duration);  //获取视频的总播放时长
+			//         console.log(video.currentTime);  //获取视频已播放的秒数
+			//         console.log(video.ended);  //获取视频是否播放完毕
+			//         console.log(video.played);  //获取视频的已播放的时间范围,返回TimeRanges数据
+			//         console.log(video.volume);  //获取视频的当前音量
+			//     }
+			// }, 2000);
+			console.log(video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"'));
+			console.log(video.canPlayType('video/ogg; codecs="theora"'));
+			console.log(video.canPlayType('video/webm; codecs="vp8, vorbis"'));
+			console.log(video.canPlayType('audio/mp4; codecs="mp4a.40.2"'));
+
+			window.onpopstate = (event) => {
+				console.log(11111);
+				console.log(event, event.state);
+				if (event.state) {
+					console.log(event.state);
+				}
+			};
+			try {
+				window.ffgfff();
+			} catch (error) {
+				console.log(error.message, error.name);
+			}
+
+			// var name = window.prompt("请输入你的名字","");
+			// if(name != null && name != ""){
+			//     console.log(`你好,${name}`);
+			// }
+			// setTimeout(() => {
+			//     location.replace(location);
+			// }, 2000);
+
+			var book = {
+				title: "fanyuhua",
+				name: ["fanyuhua fanyuhua"],
+				editon: 3,
+				year: 2021,
+				time: new Date(2021, 11, 1),
+				toJSON: function () {
+					// return this.title;
+					return this;
+					// return undefined;
+				}
+			};
+			var jsonText = JSON.stringify(book, null, "\t");
+			console.log(jsonText);
+			var bookCopy = JSON.parse(jsonText, function (key, value) {
+				if (key == "time") {
+					return new Date(value);
+				} else {
+					return value;
+				}
+			});
+			console.log(bookCopy);
+			console.log(bookCopy.time.getFullYear());
+			// console.log(typeof XMLHttpRequest); // function
+			// console.log(typeof ActiveXObject); // undefined
+
+			var xxhr = new XMLHttpRequest();
+			xxhr.onreadystatechange = function () {
+				if (xxhr.readyState == 4 && ((xxhr.status >= 200 && xxhr.status < 300) || xxhr.status == 304)) {
+					console.log(1111111111111111);
+				}
+			};
+      xxhr.open("post", "https://dtdd.mgame.360.cn/t/game/hall", true);
+      xxhr.send(new URLSearchParams({a:1}))
+
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+				console.log(xhr.status, "xhr.status");
+				console.log(xhr.readyState, "xhr.readyState");
+				if (xhr.readyState == 4) {
+					console.log(xhr.responseText, "xhr.responseText");
+					console.log(xhr.responseXML, "xhr.responseXML");
+					var rhs = xhr.getAllResponseHeaders();
+					console.log(rhs, "allresponseheaders");
+				}
+			};
+			xhr.onload = () => {
+				if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+					console.log(xhr.responseText, "请求成功的返回数据");
+				} else {
+					console.log("请求不成功");
+				}
+			};
+			xhr.onprogress = (event) => {
+				console.log(event, "event");
+				if (event.lengthComputable) {
+					console.log(event.lengthComputable, "event.lengthComputable");
+					console.log(event.loaded, "event.loaded");
+					console.log(event.total, "event.total");
+					var num = (event.loaded / event.total) * 100;
+					span1.innerHTML = num + "%";
+				}
+			};
+			// xhr.open("get","text.txt",false); // false是同步请求
+			xhr.open("get", "text.txt", true); // true是异步请求
+			xhr.setRequestHeader("MyName", "fanyuhua");
+			// xhr.setRequestHeader("Origin",window.location.origin)
+			xhr.overrideMimeType("text/xml");
+			xhr.send(null);
+			// xhr.abort();
+			// console.log(xhr.status); // 200 或者 304
+			// console.log(xhr.statusText); // OK
+			// console.log(xhr.responseText);
+			// console.log(xhr.status,"xhr.state");
+
+			function call(res) {
+				alert(`你的名字是${res.errno}`);
+			}
+			var script = document.createElement("script");
+			script.src = "https://home.360game.360.cn/api/user/gettop?callback=call";
+			document.body.insertBefore(script, document.body.firstChild);
+		</script>
+	</body>
+</html>

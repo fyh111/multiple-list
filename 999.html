@@ -12,8 +12,8 @@
         <p class="p3">03</p>
         <p class="p4">04</p>
     </div>
-    <iframe src="http://www.baidu.com" frameborder="2" name="iframe1" style="height: 300px;width: 300px;"></iframe>
-    <button class="button1">字体加粗</button>
+    <iframe src="blank.html" frameborder="2" name="iframe1" style="height: 300px;width: 300px;"></iframe>
+    <button class="button1" draggable="true">字体加粗</button>
     <button class="button2">字号增加</button>
     <button class="button3">字号减小</button>
     <button class="button4">字体倾斜</button>
@@ -23,6 +23,9 @@
         <li class="li"><a href="javascript:;" class="start">22222</a></li>
         <li class="li"><a href="javascript:;" class="start">33333</a></li>
     </ul>
+    <span class="getInfo">获取到的数据</span>
+    <input type="text" class="input1" value="请输入" />
+    <input type="text" class="input2" />
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
         var div1 = document.querySelector(".div1");
@@ -33,14 +36,18 @@
         var btn3 = document.querySelector(".button3");
         var btn4 = document.querySelector(".button4");
         var btn5 = document.querySelector(".button5");
+        var info = document.querySelector(".getInfo");
+        var input1 = document.querySelector(".input1");
+        var input2 = document.querySelector(".input2");
         // div1.appendChild(p1); // 将元素从原来的位置移动到新位置
         // div1.insertBefore(p3,p1); // 将元素从原来的位置移动到新的位置,原来位置的元素消失
-        setInterval(() => {
-            div1.appendChild(div1.firstChild);
-        }, 3000);
+        // setInterval(() => {
+        //     div1.appendChild(div1.firstChild);
+        // }, 3000);
 
         window.onload = function(){
             p1.contentEditable = true;
+            p3.contentEditable = true;
             window.frames["iframe1"].document.designMode = "on";
         }
         btn1.onclick = function(){
@@ -74,7 +81,79 @@
         }
         $("body").on("click",".start",function(event){
             alert($(this).parent().index()+1)
-        })
+        });
+
+        window.onmessage = function(event){
+            if(event.origin == "http://127.0.0.1:5500"){
+                info.innerHTML = event.data;
+                event.source.postMessage("传输到frame里","http://127.0.0.1:5500");
+            }else{
+                console.log("域名不对");
+            }
+        }
+        info.ondragstart = function(event){
+            event.dataTransfer.setData("text/uri-list","http://www.fanyuhua.com");
+            event.dataTransfer.effectAllowed = "move";
+            console.log("拖拽开始");
+        }
+        info.ondrag = function(e){
+            console.log("拖拽进行中");
+        }
+        info.ondragend = function(e){
+            console.log("拖拽结束");
+        }
+        div1.ondragenter = function(event){
+            event.dataTransfer.dropEffect = "move";
+            console.log("进入放置目标");
+        }
+        div1.ondragover = function(e){
+            e.preventDefault();
+            console.log("在放置目标中移动");
+        }
+        div1.ondragleave = function(){
+            console.log("离开放置目标");
+        }
+        div1.ondrop = function(event){
+            event.preventDefault();
+            var url = event.dataTransfer.getData("text/uri-list");
+            // var text = event.dataTransfer.getData("text");
+            event.target.innerHTML = url;
+            // event.target.innerHTML = text;
+            console.log("放置在放置目标中");
+        }
+        input1.ondragstart = function(event){
+            // event.preventDefault();
+            event.dataTransfer.effectAllowed = "move";
+            // event.dataTransfer.setData("text/plain",event.target.value);
+            console.log("input拖拽开始");
+        }
+        input1.ondrag = function(e){
+
+        }
+        input1.ondragend = function(e){
+            
+        }
+        input2.ondragenter = function(event){
+            // event.preventDefault();
+            // event.dataTransfer.effectAllowed = "copy";
+            event.dataTransfer.dropEffect = "move";
+            console.log("进入放置目标");
+        }
+        input2.ondragover = function(e){
+            // e.preventDefault();
+            console.log("在放置目标中移动");
+        }
+        input2.ondragleave = function(){
+            console.log("离开放置目标");
+        }
+        input2.ondrop = function(event){
+            // event.preventDefault();
+            // var url = event.dataTransfer.getData("text/uri-list");
+            var text = event.dataTransfer.getData("text/plain");
+            // event.target.value = url;
+            event.target.value = text;
+            console.log("放置在放置目标中");
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .gif42{
+            transition: opacity 1s;
+        }
+        .gif42:hover{
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <img src="42.gif" alt="42" class="gif42">
+    <button class="click">点击</button>
+    <script>
+        var img = document.querySelector(".gif42");
+        var btn = document.querySelector(".click");
+        var opac = 1;
+        btn.onclick = function(){
+            
+        }
+
+    </script>
+</body>
+</html>

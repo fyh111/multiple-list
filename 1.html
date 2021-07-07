@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .div1{
+            background-color: aqua;
+            height: 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="div1"></div>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        var div1 = document.querySelector(".div1");
+        var obj = {"name":"fanyuhua","type":"yunqugame"};
+        div1.dataset.gdata= obj;
+        function openLink(argu, mid){
+            $("body").on("click", "div", function () {
+                try {
+                    $.ajax({
+                        type: "get",
+                        url: "https://dtdd.mgame.360.cn/t/game/hall",
+                        data: argu,
+                        dataType: "jsonp",
+                        success: function (res) {
+                            console.log(res, "=====>");
+                        },
+                        error: function (err) {
+                            console.log(err, "=====>");
+                        }
+                    })
+                } catch (error) {
+                    console.log(error,"............");
+                }
+                var gdata = $(this).data("gdata");
+                console.log(gdata);
+                if(gdata.type == "yunqugame" || gdata.type == "webgame"){
+                    console.log(gdata.type + mid);
+                }
+                var inner = new Date();
+                console.log(inner);
+            })
+        }
+        openLink();
+
+        async function testAsync(){
+            return "fanyuhua"
+        }
+        console.log("first");
+        setTimeout(()=>{
+            console.log("settimeout");
+        },10)
+        testAsync().then(v=>{
+            console.log(v);
+        })
+    </script>
+</body>
+</html>

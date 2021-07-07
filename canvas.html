@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="42.gif" />
 </head>
 <body>
     <img src="42.gif" alt="42" />
@@ -12,6 +13,7 @@
     <canvas class="yu" height="300" width="300">不支持canvas</canvas>
     <canvas class="hua" height="300" width="300">不支持canvas</canvas>
     <canvas class="fyh" height="300" width="300">不支持canvas</canvas>
+    <canvas class="c1" height="300" width="300">不支持canvas</canvas>
     <h1>fanyuhua</h1>
     <script>
         var drawingF = document.querySelector(".fan");
@@ -112,15 +114,43 @@
             var contextFYH = drawingFYH.getContext("2d");
             var img = document.images[1];
             img.onload = function(){
-                console.log(img);
                 contextFYH.drawImage(img,0,0);
             }
             // var imgData = contextFYH.getImageData(0,0,img.width,img.height);
         }
-        var a = (function(){
-            return 1,2
-        })()
-        console.log(a);
+        var drawing1 = document.querySelector(".c1");
+        if(drawing1.getContext){
+            var c1 = drawing1.getContext("2d"),
+                img = document.images[0],
+                imgData,data,i,len,average,
+                red,green,blue,alpha;
+            img.onload = function(){
+                c1.drawImage(img,0,0);
+                imgData = c1.getImageData(0,0,img.width,img.height);
+                data = imgData.data;
+                
+                for(i=0,len=data.length;i<len;i+=4){
+                        red = data[i];
+                        green = data[i+1];
+                        blue = data[i+2];
+                        alpha = data[i+3];
+                    
+                        average = Math.floor((red+green+blue)/3);
+                    
+                        data[i] = average;
+                        data[i+1] = average;
+                        data[i+2] = average;
+                }
+                    imgData.data = data;
+                    c1.putImageData(imgData,0,0);
+            }
+            c1.fillStyle = "#ff0000";
+            c1.fillRect(0,0,50,50);
+            c1.globalAlpha = 0.5;
+            c1.fillStyle = "#0000ff";
+            c1.fillRect(25,25,50,50);
+            c1.globalAlpha = 0.1;
+        }
     </script>
 </body>
 </html>

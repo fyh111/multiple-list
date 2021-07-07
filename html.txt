@@ -14,3 +14,5 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 该标签用于将页面中的http链接改为更安全的https链接
+
+<link rel="icon" type="image/x-icon" href="" />可以修改页面的icon

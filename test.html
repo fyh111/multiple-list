@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			const requestPost = ({ url, data }) => {
+				// 首先创建一个用来发送数据的iframe.
+				const iframe = document.createElement("iframe");
+				iframe.name = "iframePost";
+				iframe.style.display = "none";
+				document.body.appendChild(iframe);
+				const form = document.createElement("form");
+				const node = document.createElement("input");
+				// 注册iframe的load事件处理程序,如果你需要在响应返回时执行一些操作的话.
+				iframe.addEventListener("load", function () {
+					console.log("post success");
+				});
+
+				form.action = url;
+				// 在指定的iframe中执行form
+				form.target = iframe.name;
+				form.method = "get";
+				for (let name in data) {
+					node.name = name;
+					node.value = data[name].toString();
+					form.appendChild(node.cloneNode());
+				}
+				// 表单元素需要添加到主文档中.
+				form.style.display = "none";
+				document.body.appendChild(form);
+				form.submit();
+
+				// 表单提交后,就可以删除这个表单,不影响下次的数据发送.
+				document.body.removeChild(form);
+			};
+			// 使用方式
+			requestPost({
+				url: "https://dtdd.mgame.360.cn/t/game/hall",
+				data: {
+          msg: "helloIframePost",
+          info: 'test'
+				}
+			});
+		</script>
+	</body>
+</html>
